@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface IVeiculoRepository {
     List<Veiculo> listarVeiculos();
+    Veiculo save(Veiculo veiculo);
 }

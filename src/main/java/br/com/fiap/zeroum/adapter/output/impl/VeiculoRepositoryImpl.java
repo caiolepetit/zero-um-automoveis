@@ -18,4 +18,9 @@ public class VeiculoRepositoryImpl implements IVeiculoRepository {
     public List<Veiculo> listarVeiculos() {
         return veiculoRepositoryPostgres.findAll();
     }
+
+    @Override
+    public Veiculo save(Veiculo veiculo) {
+        return veiculoRepositoryPostgres.save(veiculo);
+    }
 }
