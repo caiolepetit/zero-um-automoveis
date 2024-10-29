@@ -17,7 +17,7 @@ public class ListarVeiculos implements IListarVeiculos {
     }
 
     @Override
-    public List<Veiculo> listarVeiculos() {
-        return veiculoRepository.listarVeiculos();
+    public List<Veiculo> listarVeiculosOrdenadoPorPrecoAsc() {
+        return veiculoRepository.listarVeiculosOrdenadoPorPrecoAsc();
     }
 }
