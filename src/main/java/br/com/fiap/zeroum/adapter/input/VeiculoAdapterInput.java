@@ -1,16 +1,17 @@
 package br.com.fiap.zeroum.adapter.input;
 
-import br.com.fiap.zeroum.adapter.dto.VeiculoDTO;
-import br.com.fiap.zeroum.adapter.dto.VendaDTO;
+import br.com.fiap.zeroum.adapter.input.request.VeiculoRequest;
+import br.com.fiap.zeroum.adapter.input.request.VendaRequest;
+import br.com.fiap.zeroum.adapter.input.response.VeiculoResponse;
+import br.com.fiap.zeroum.adapter.input.response.VendaResponse;
 import br.com.fiap.zeroum.adapter.mapper.VeiculoMapper;
 import br.com.fiap.zeroum.adapter.mapper.VendaMapper;
-import br.com.fiap.zeroum.adapter.response.VendaResponse;
-import br.com.fiap.zeroum.domain.entity.Veiculo;
-import br.com.fiap.zeroum.domain.entity.Venda;
-import br.com.fiap.zeroum.port.input.ICadastrarVeiculo;
-import br.com.fiap.zeroum.port.input.IEditarVeiculo;
-import br.com.fiap.zeroum.port.input.IListarVeiculos;
-import br.com.fiap.zeroum.port.input.IRealizarVenda;
+import br.com.fiap.zeroum.application.dto.VeiculoDTO;
+import br.com.fiap.zeroum.application.dto.VendaDTO;
+import br.com.fiap.zeroum.application.port.input.ICadastrarVeiculo;
+import br.com.fiap.zeroum.application.port.input.IEditarVeiculo;
+import br.com.fiap.zeroum.application.port.input.IListarVeiculos;
+import br.com.fiap.zeroum.application.port.input.IRealizarVenda;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -34,35 +34,31 @@ public class VeiculoAdapterInput {
     private final IRealizarVenda realizarVenda;
 
     @GetMapping()
-    public List<VeiculoDTO> listarTodosVeiculosOrdenadoPorPreco() {
-        List<Veiculo> veiculos = listarVeiculos.listarVeiculosOrdenadoPorPrecoAsc();
+    public List<VeiculoResponse> listarTodosVeiculosOrdenadoPorPreco() {
+        List<VeiculoDTO> veiculosDTO = listarVeiculos.listarVeiculosOrdenadoPorPrecoAsc();
 
-        if(!veiculos.isEmpty()) {
-            return VeiculoMapper.toVeiculosDTO(veiculos);
-        }
-
-        return Collections.emptyList();
+        return VeiculoMapper.toVeiculosResponse(veiculosDTO);
     }
 
     @PostMapping()
-    public VeiculoDTO cadastrarVeiculo(@RequestBody VeiculoDTO veiculoDTO) {
-        Veiculo veiculo = cadastrarVeiculo.cadastrarVeiculo(VeiculoMapper.toVeiculo(veiculoDTO));
+    public VeiculoResponse cadastrarVeiculo(@RequestBody VeiculoRequest veiculoRequest) {
+        VeiculoDTO veiculoDTO = cadastrarVeiculo.cadastrarVeiculo(VeiculoMapper.toVeiculoDTO(veiculoRequest));
 
-        return VeiculoMapper.toVeiculoDTO(veiculo);
+        return VeiculoMapper.toVeiculoResponse(veiculoDTO);
     }
 
     @PutMapping("/{id}")
-    public VeiculoDTO editarVeiculo(@PathVariable Long id, @RequestBody VeiculoDTO veiculoDTO) {
-        Veiculo veiculo = editarVeiculo.editarVeiculo(id, VeiculoMapper.toVeiculo(veiculoDTO));
+    public VeiculoResponse editarVeiculo(@PathVariable Long id, @RequestBody VeiculoRequest veiculoRequest) {
+        VeiculoDTO veiculoDTO = editarVeiculo.editarVeiculo(VeiculoMapper.toVeiculoDTO(veiculoRequest, id));
 
-        return VeiculoMapper.toVeiculoDTO(veiculo);
+        return VeiculoMapper.toVeiculoResponse(veiculoDTO);
     }
 
     @PutMapping("/{id}/venda")
-    public VendaResponse realizarVenda(@PathVariable Long id, @RequestBody VendaDTO vendaDTO) {
-        Venda venda = realizarVenda.realizarVenda(id, vendaDTO.getCpf());
+    public VendaResponse realizarVenda(@PathVariable Long id, @RequestBody VendaRequest vendaRequest) {
+        VendaDTO vendaDTO = realizarVenda.realizarVenda(id, vendaRequest.getCpf());
 
-        return VendaMapper.toVendaResponse(venda);
+        return VendaMapper.toVendaResponse(vendaDTO);
     }
 
 }

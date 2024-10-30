@@ -73,7 +73,6 @@ PUT /veiculos/1
 Content-Type: application/json
 
 {
-  "id": 1,
   "marca": "Chevrolet",
   "modelo": "Corsa",
   "ano": 1997,
