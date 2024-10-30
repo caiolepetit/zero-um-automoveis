@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,16 +17,17 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "Veiculos")
+@Table(name = "Veiculo")
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Builder
+@SequenceGenerator(name = "veiculo_generator", sequenceName = "veiculo_id_seq", allocationSize = 1)
 public class Veiculo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "veiculo_generator")
     private Long id;
 
     @Column
