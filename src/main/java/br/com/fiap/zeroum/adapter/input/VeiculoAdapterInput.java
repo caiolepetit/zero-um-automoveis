@@ -1,11 +1,16 @@
 package br.com.fiap.zeroum.adapter.input;
 
 import br.com.fiap.zeroum.adapter.dto.VeiculoDTO;
+import br.com.fiap.zeroum.adapter.dto.VendaDTO;
 import br.com.fiap.zeroum.adapter.mapper.VeiculoMapper;
+import br.com.fiap.zeroum.adapter.mapper.VendaMapper;
+import br.com.fiap.zeroum.adapter.response.VendaResponse;
 import br.com.fiap.zeroum.domain.entity.Veiculo;
+import br.com.fiap.zeroum.domain.entity.Venda;
 import br.com.fiap.zeroum.port.input.ICadastrarVeiculo;
 import br.com.fiap.zeroum.port.input.IEditarVeiculo;
 import br.com.fiap.zeroum.port.input.IListarVeiculos;
+import br.com.fiap.zeroum.port.input.IRealizarVenda;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +31,7 @@ public class VeiculoAdapterInput {
     private final IListarVeiculos listarVeiculos;
     private final ICadastrarVeiculo cadastrarVeiculo;
     private final IEditarVeiculo editarVeiculo;
+    private final IRealizarVenda realizarVenda;
 
     @GetMapping()
     public List<VeiculoDTO> listarTodosVeiculosOrdenadoPorPreco() {
@@ -50,6 +56,13 @@ public class VeiculoAdapterInput {
         Veiculo veiculo = editarVeiculo.editarVeiculo(id, VeiculoMapper.toVeiculo(veiculoDTO));
 
         return VeiculoMapper.toVeiculoDTO(veiculo);
+    }
+
+    @PutMapping("/{id}/venda")
+    public VendaResponse realizarVenda(@PathVariable Long id, @RequestBody VendaDTO vendaDTO) {
+        Venda venda = realizarVenda.realizarVenda(id, vendaDTO.getCpf());
+
+        return VendaMapper.toVendaResponse(venda);
     }
 
 }

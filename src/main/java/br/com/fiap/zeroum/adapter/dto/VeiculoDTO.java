@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Getter
 @Builder
@@ -14,4 +15,6 @@ public class VeiculoDTO {
     private int ano;
     private String cor;
     private BigDecimal preco;
+    private boolean isVendido;
+    private LocalDateTime dataHoraUltimaAlteracao;
 }

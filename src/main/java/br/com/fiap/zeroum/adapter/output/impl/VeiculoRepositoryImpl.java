@@ -4,7 +4,6 @@ import br.com.fiap.zeroum.adapter.VeiculoRepositoryPostgres;
 import br.com.fiap.zeroum.domain.entity.Veiculo;
 import br.com.fiap.zeroum.port.output.IVeiculoRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,7 +17,7 @@ public class VeiculoRepositoryImpl implements IVeiculoRepository {
 
     @Override
     public List<Veiculo> listarVeiculosOrdenadoPorPrecoAsc() {
-        return veiculoRepositoryPostgres.findAll(Sort.by(Sort.Direction.ASC, "preco"));
+        return veiculoRepositoryPostgres.findAllByVendidoOrderByPrecoAsc(false);
     }
 
     @Override

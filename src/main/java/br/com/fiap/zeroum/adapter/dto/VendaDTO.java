@@ -1,14 +1,12 @@
 package br.com.fiap.zeroum.adapter.dto;
 
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-
-import java.time.LocalDateTime;
+import lombok.NoArgsConstructor;
 
 @Getter
-@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class VendaDTO {
     private String cpf;
-    private LocalDateTime dataVenda;
-    private VeiculoDTO veiculo;
 }

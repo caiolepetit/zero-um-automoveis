@@ -4,6 +4,7 @@ import br.com.fiap.zeroum.adapter.dto.VeiculoDTO;
 import br.com.fiap.zeroum.domain.entity.Veiculo;
 import lombok.experimental.UtilityClass;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +21,8 @@ public class VeiculoMapper {
                     .ano(veiculo.getAno())
                     .cor(veiculo.getCor())
                     .marca(veiculo.getMarca())
+                    .isVendido(veiculo.isVendido())
+                    .dataHoraUltimaAlteracao(veiculo.getDataHoraUltimaAlteracao())
                     .preco(veiculo.getPreco()).build());
         }
 
@@ -34,6 +37,8 @@ public class VeiculoMapper {
                 .ano(veiculoDTO.getAno())
                 .cor(veiculoDTO.getCor())
                 .preco(veiculoDTO.getPreco())
+                .vendido(veiculoDTO.isVendido())
+                .dataHoraUltimaAlteracao(LocalDateTime.now())
                 .build();
     }
 
@@ -45,6 +50,8 @@ public class VeiculoMapper {
                 .ano(veiculo.getAno())
                 .cor(veiculo.getCor())
                 .preco(veiculo.getPreco())
+                .isVendido(veiculo.isVendido())
+                .dataHoraUltimaAlteracao(veiculo.getDataHoraUltimaAlteracao())
                 .build();
     }
 
